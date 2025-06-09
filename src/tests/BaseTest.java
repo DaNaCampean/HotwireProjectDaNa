@@ -1,11 +1,14 @@
 package tests;
 
-import base.BasePageDriverInitialization;
+import base.BaseURL;
+import pages.FlightsPage;
+import pages.HomePage;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
-import pages.FlightsPage;
-import pages.HomePage;
+import utils.DriverUtils;
+
+import static utils.DriverUtils.driverQuit;
 
 public class BaseTest {
     public HomePage home;
@@ -13,23 +16,21 @@ public class BaseTest {
 
     @BeforeSuite
     public void initDriver(){
-
-       BasePageDriverInitialization.setupMac();
-       // BasePageDriverInitialization.driverSetupWindows();
-
+        DriverUtils.setupMacWebDriverPath();
+        //DriverUtils.setupWindowsWebDriverPath();
+        DriverUtils.chromeDriverOpen();
+        BaseURL.goToURL();
     }
 
     @BeforeTest
     public void createObjects(){
-       home = new HomePage();
-       flights = new FlightsPage();
+        home = new HomePage();
+        flights = new FlightsPage();
 
     }
 
     @AfterSuite
-    public void driverQuit(){
-
-     // BasePageDriverInitialization.driverQuit();
-
+    public void driverExit(){
+        driverQuit();
     }
 }
